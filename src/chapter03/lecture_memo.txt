@@ -1,0 +1,75 @@
+=====섹션3
+- jsx의 정의와 역할
+    jsx = js + xml/html 의 약자 
+    예시 : const element = <h1> hello, world </h1>;
+    const element라는 js와 <h1></h1> 라는 html이 결합된 것이 바로 jsx 다. 
+- jsx의 역할과 사용 이유
+    내부적으로 xml/html을 js로 변환되어 사용한다. 변환에 사용되는 것이 바로
+    React.createElement() 다. 해당 함수의 결과를는 아래와 같은 객체가 생성된다. 
+    const 변수명 = {
+        type: 태그, 
+        props : [{
+            id:value
+        }], 
+        children : [{}]
+    }
+
+    - jsx 와 일반js 비교
+    (jsx)
+    const element = {
+        <h1 className = 'greeting'>Hello, world!</h1>
+    }
+    (js)
+    const element = React.createElement('h1', {className : 'greeting'}, 'Hello, world!' )
+
+    React.createElement() 를 통해 jsx가 js변환된다는 것은, 리액트에서 반드시 jsx를 쓰지 않아도 된다는 것이다. 
+    직접 js를 사용해서 개발해도 된다. 다만 jsx를 사용하면 훨씬 편리해진다. 
+- jsx의 장점
+    - 간결한 코드
+    - 높은 가독성
+    - injection attack 방어
+- jsx 사용법
+    html코드 사이에 js 문법을 사용하고 싶을 때 {} 를 통해 작성한다. 
+    (예시)
+        function formatUser(user){
+            return user.firstname + '' + user.lastName;
+        }
+        const element = (
+            <h1>Hello, {formatUser(user)}</h1>
+        )
+        ReactDOM.render(
+            element, 
+            document.getElementById('root')
+        )
+    (태크의 속성에 값을 넣는 방법)
+        1. 큰따옴표 사이에 문자열을 넣거나
+        const element = <div tabIndex="0"></div>;
+        2. 중괄호 사이에 자바스크립트 코드를 넣는다. 
+        const element = <img src={user.avatarUrl}></img>
+    (childern 정의하기)
+        태그 아래 하위태그가 생기면 자동적으로 children이 생성된다. 
+    (index.js)
+        
+=====섹션 3에러
+Uncaught TypeError: react_dom_client__WEBPACK_IMPORTED_MODULE_1__.render is not a function
+
+
+강의에 나온 
+ReactDOM.render(
+   <React.StrictMode>
+     <App />
+   </React.StrictMode>,
+   document.getElementById("root")
+);
+의 ReactDOM은 리액트 18버전부터 제공하지 않는다. 
+그래서 설치시 기본으로 제공하는 root.render를 사용해서 실행시켜야한다. 
+
+package.json에서 내 react 버전 확인하고 18버전이상이면
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    <Library />
+  </React.StrictMode>,
+  document.getElementById("root")
+);
+기반으로 코드를 짜면 된다. 

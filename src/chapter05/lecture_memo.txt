@@ -1,0 +1,66 @@
+======섹션 5  Props 소개
+동일하게 생긴 블록이라면 그것을 여러번 재사용해서 화면을 그리는 것이 리액트 
+    js function과 react Component와 비슷하다. 
+    함수에서 input과 output이 있다면
+    React 의 input이 props, output이 React element다. 
+    리액트는 객체지향의 Class와 instance처럼 붕어빵(Component) 틀과 붕어빵(Element)이라고 보면된다. 
+Prop : Component의 Property라고 보면 된다. 
+    prop이 팥이라면 팥붕 element, 슈크림이면 슈붕 element, 고구마면 고구마element다. 
+    즉 Component의 속 재료라고 보면된다. 
+    똑같은 모양의 사각현 컴포넌트안에 사진과 색상등은 모두 달라진다고 보면된다. 
+Props의 특징 및 사용법 : 
+    1. 특징 : Readonly (Immutable) 
+        붕어빵이 다 구어진 이후에 속재료를 바꿀 수 없는 원리랑 똑같은것. 
+        새로운 엘리먼트를 만들려면 새로운 값을 컴포넌트에 전달하여 새로 Element를 생성
+        *pure한 함수란?
+            입력값을 변경하지 않으며 같은 입력값에 대해서는 항상 같은 출력값을 리턴
+            (ex) function sum(a+b){return a+b;}
+        *impure한 함수
+            function withdraw(account, amount){ account.total -= amount;}
+        React는 pure하다 => 모든 리액트 컴포넌트는 props를 직접 바꿀 수 없고, 같은 props에 대해서는 항상 같은 결과를 보여준다. 
+    2. Props 사용법
+        Props: 컴포넌트에 전달할 다양한 정보를 담고 있는 객체
+        그럼 컴포넌트에 props를 어떻게 전달할 수 있을까? 
+        props에 문자열 이외의 값(정수, 변수, 다른 컴포넌트)이 들어갈 때는 {}로 감싸준다. 
+        {}는 javascript 문법을 사용할 때 사용된다. 
+====== 섹션5 : Component 만들기 
+컴포넌트 : Function Component & Class Component 
+    과거에는 Class Component를 사용했는데, 지금은 Hook을 사용한 Function Component를 사용한다. 
+함수 컴포넌트 : 간단한다
+    function Welcome(props){
+        return <h1>안녕, {props.name}</h1>;
+    }
+클래스 컴포넌트 : React.Component를 상속받아 새로운 자식 클래스를 만드는 방식. 
+    class Welcome extends React.Component{
+        render(){
+            return <h1>안녕, {this.props.name}</h1>
+        }
+    }
+컴포넌트 이름짓기 : 항상 대문자로 시작해야한다. 
+    이유 : 소문자로 시작하면 dom 태그(<div><span>)로 인식하기 때문. 소문자로 하면 컴파일하면서 에러가 날 것. 
+컴포넌트 렌더링 : 컴포넌트는 붕어빵'틀' 이기 때문에 컴포넌트가 실제 화면에 보이지 않는다. 
+                대신 컴포넌트를 통해 만든 엘리먼트가 눈에 보인다. 
+                (예시)
+                컴포넌트 생성
+                function Welcome(props){
+                    return <h1>안녕, {props.name}</h1> 
+                }
+                엘리먼트 생성
+                const element = <Welcome name="인제" />
+                렌더링 
+                ReactDOM.render(
+                    element, 
+                    document.getElementById('root')
+                )
+컴포넌트 합성: React는 컴포넌트 안에 또 다른 컴포넌트를 넣을 수 있다. 
+                function App(props){
+                    return (
+                        <div>
+                            <Welcome name="Mike"/>
+                            <Welcome name="Joe"/>
+                            <Welcome name="Steve"/>
+                        </div>
+                    )
+                }
+컴포넌트 추출 : 컴포넌트 쪼개기
+    장점 : 재사용성 상승, 개발속도 상승
