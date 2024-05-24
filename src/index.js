@@ -7,15 +7,23 @@ import reportWebVitals from "./reportWebVitals";
 // import Clock from "./chapter04/Clock";
 // import CommentList from "./chapter05/CommentList";
 import NotificationList from "./chapter06/NotificationList";
+import Accommodate from "./chapter07/Accommodate";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-// chapter06
+
+// Chapter07
 root.render(
   <React.StrictMode>
-    <NotificationList />
-  </React.StrictMode>,
-  // document.getElementById("root")
+    <Accommodate />
+  </React.StrictMode>
 );
+// chapter06
+// root.render(
+//   <React.StrictMode>
+//     <NotificationList />
+//   </React.StrictMode>,
+// document.getElementById("root")
+//)
 
 //chapter05
 // root.render(

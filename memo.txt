@@ -209,3 +209,70 @@ Lifecycle : 하나의 Component는 계속 같은 상태로 존재하지 않고,
 // 문제 1 : componentDidUpdate() 함수가 아예 실행되지 않음
 // 문제 2 : 3번째 컴포넌트에 대한 건 출력이 안되고 있음
 // 문제 3 : 1초 텀을 두고 1번과 2번이 출력되어야하는데 둘이 동시에 출력되고 있음. 
+
+=========== 섹션 07. Hooks
+React version16.8에서 새롭게 등장한 개념이나 지금은 모두 hook을 사용한다. 
+Hook 이란? 
+    Component 는 함수컴포넌트 / 클래스 컴포넌트가 있다. 함수 컴포넌트는 Class Component에 비해 코드가 간결해서 따로 state를 조정할 수 없었다. 
+    그래서 등장한게 Hook이다. 
+    원해진 시점에 정해진 함수를 수행하게끔 만들어진것이며, 
+    hook의 규칙 중 하나는 앞에 use가 붙는다는 것이다. 
+useState() : state를 사용하기 위한 Hook
+    * 변수 각각에 대해 set함수가 따로 존재한다. 
+    const [변수명, set함수명] = useState(초기값);   
+    초기값 : 파라미터로 선언할 것 (생성자에서 setState하는 것과 동일)
+        (ex)
+        function Counter(props){
+            const [count, setCount] = useState(0);
+            return (
+                <div>
+                    <p>총 {count}번 클릭했습니다</p>
+                    <button onClick
+                </div>
+            )
+        }
+useEffect() : sideEffect를 수행하기 위한 Hook
+    리액트에서 얘기하는 side Effect는 효과를 의미한다. 이름이 이렇게 지어진 배경은 이펙트가 다른 컴포넌트에 영향을 미칠 수 있으며, 렌더링 중에는 완료될 수 없기 때문. 
+    그래서 side로 진행되게끔 리액트의 함수 컴포넌트에서 side effect를 실행할 수 있게 해주는 hook
+    componentDidMount(), componentWillUnmount(), componentDidUpdate() 함수를 하나로 합친거라고 보면 된다. 
+    
+    useEffect(이펙트 함수, 의존성 배열);
+    의존성 배열이 하나라도 변경하면 바로 이펙트함수가 실행됨. 
+    기본적으로 effect함수는 처음으로 컴포넌트가 렌더링된 초기 시점과 update로 인한 재렌더링 때에 실행된다. 
+    의존성 배열을 생략하면 업데이트 될 때마다 재렌더링됨. 
+
+useMemo() : Memoized value를 리턴하는 hook
+    memoization : 최적화를 위해 사용되는 개념. 한번 호출된 결과를 저장해뒀다가 그 값을 바로 반환. 컴퓨터 자원을 적게쓸 수 있음. 
+    * 렌더링이 진행되는 동안 실행된다. 그래서 렌더링이 일어나는 동안 실행되서는 안되는 함수를 넣어서는 안된다. 
+
+    const memoizedValue = useMemo(
+        () => {
+            reutrn computeExpensiveValue(의존성변수1, 의존성변수2);
+        },
+        [의존성 변수1, 의존성 변수2]
+    );
+
+    의존성배열을 넣지 않으면 매 렌더링마다 함수가 실행됨. 
+    의존성배열이 빈 배열일 경우, 컴포넌트 마운트 시에만 호출됨. 
+
+useCallback() : useMemo() Hook과 유사하지만 값이 아닌 함수를 변환
+    const memoizedCallback = useCallback(()=>{
+        doSomething(의존성변수1, 의존성 변수2);
+    },
+    [의존성 변수1, 의존성 변수2]);
+
+    아래 두 함수는 동일한 기능을 한다. 
+    *useCallback(함수, 의존성배열);
+    *useMemo(()=> 함수, 의존성배열);
+
+useRef() : Reference(특정 컴포넌트에 접근할 수 있는 객체)를 반환
+    refObject.current : 현재 참조하고 있는 Element의미
+    (ex)
+    const refContainer = useRef(초깃값);
+    component mount해지전까지 계속 유지됨. 
+    * useRef() Hook은 내부의 데이터가 변경되었을 때 별도로 알리지 않는다. 
+Callback Ref를 사용해서 변경된 여부를 알람을 받는다. React는 다른 노드에 Callback를 실행하게 된다. 
+
+=========== 섹션 07. Custom Hook
+Custom Hook : 이름이 use로 시작하고 내부에서 다른 Hook을 호출하는 하나의 자바스크립트 함수
+각 Custom Hook은 독립적 
