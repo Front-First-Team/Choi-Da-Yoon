@@ -180,4 +180,32 @@ Props의 특징 및 사용법 :
                 }
 컴포넌트 추출 : 컴포넌트 쪼개기
     장점 : 재사용성 상승, 개발속도 상승
-    
+=======섹션6 : State와 Lifecycle 정의
+State : 리액트 컴포넌트의 변경 가능한 데이터 => 개발자가 정의한다. 
+        * 렌더링이나 데이터 흐름에 사용되는 값만 state에 포함시켜야함. 
+        왜냐하면 state가 변경될 경우 컴포넌트가 재렌더링 되기 때문에 
+        불필요한 state 변경은 불필요한 재렌더링을 유도하기 때문. 
+      : state는 Javascript 객체이다. 
+      
+      (ex)
+      class LikeButton extends React.Component{
+        constructor(props){  ==> 모든 class 컴포넌트 에는 constructor의 함수가 존재한다. 
+            super(props);
+            this.state = { ==> 이 부분이 현재 컴포넌트의 state. class 컴포넌트는 생성자 안에서 state에서 정의한다. 
+                liked :false
+            };
+        }
+      }
+State 변경 : 재렌더링와 연결되어있기 때문에 절대 직접 수정하면 안됨
+            .setState()를 통해 변경해야함. 
+Lifecycle : 하나의 Component는 계속 같은 상태로 존재하지 않고, 
+            시간의 흐름에 따라 생성되고 업데이트 되다가 사라진다. 
+            (하지만 Class Component가 잘 사용되지 않는만큼, 이 라이프 사이클도 잘 사용되지 않는다. )
+            
+            - 출생 : Mouting => component의 constructor 실행 (componentDidMount())
+            - 인생 : Updating => component의 render (componentDidUpdate())
+            - 사망 : Unmounting => 상위 클래스에서 더 이상 하위 클래스를 표기하지 않을 때 component의 unmount (componentWillUnmount())
+
+// 문제 1 : componentDidUpdate() 함수가 아예 실행되지 않음
+// 문제 2 : 3번째 컴포넌트에 대한 건 출력이 안되고 있음
+// 문제 3 : 1초 텀을 두고 1번과 2번이 출력되어야하는데 둘이 동시에 출력되고 있음. 

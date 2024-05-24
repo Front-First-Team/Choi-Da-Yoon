@@ -3,18 +3,26 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 // import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-// import Library from "./class03/Library";
+// import Library from "./chapter03/Library";
 // import Clock from "./chapter04/Clock";
-import CommentList from "./chapter05/CommentList";
+// import CommentList from "./chapter05/CommentList";
+import NotificationList from "./chapter06/NotificationList";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-
-//chapter05
+// chapter06
 root.render(
   <React.StrictMode>
-    <CommentList />
-  </React.StrictMode>
+    <NotificationList />
+  </React.StrictMode>,
+  // document.getElementById("root")
 );
+
+//chapter05
+// root.render(
+//   <React.StrictMode>
+//     <CommentList />
+//   </React.StrictMode>
+// );
 
 ///////// chapter04
 // setInterval(() => {
@@ -26,7 +34,7 @@ root.render(
 //   );
 // }, 1000);
 
-//////// class03
+//////// chapter03
 // root.render(
 //   <React.StrictMode>
 //     <Library />
