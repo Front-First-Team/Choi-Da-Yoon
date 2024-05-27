@@ -18,7 +18,7 @@ function Accommodate(props) {
     setIsFull(count >= MAX_CAPACITY);
     console.log(`Current count value : ${count}`);
   }, [count]);
-  
+
   return (
     <div style={{ padding: 16 }}>
       <p>{`총 ${count}명 수용했습니다.`}</p>
