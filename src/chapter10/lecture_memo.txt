@@ -1,0 +1,44 @@
+List&Key
+1. List : 배열
+2. Key : 고유값
+
+*map()
+const numbers = [1,2,3];
+const listItems = numbers.map((number)=>
+    <li>{number}</li>
+)
+
+ReactDOM.render(
+    <ul>{listItems}</ul>,
+    document.getELementById('root')
+)
+
+결과 : 
+ReactDOM.render(
+    <ul>
+        <li>{1}</li>
+        <li>{2}</li>
+        <li>{3}</li>
+    </ul>, 
+    document.getELementById('root')
+)
+
+-1
+-2
+-3
+
+으로 출력될 것. 다만 이렇게 할 경우 child should contain key라는 에러가 뜬다. 
+=======================================================
+React에서 map()함수 안에 있는 Elements는 꼭 key가 필요하다 ! 
+(실수가 많이 발생하는 곳)
+
+List안의 key
+
+const numbers = [1,2,3]
+const listItems = numbers.map(()=>
+    <li key = {numbers.toString()}> {number} </li>
+)
+                    //map함수에서 자동으로 두번째 인자로 index를 전달한다. 
+const todoItems = todos.map((todo, index )=>
+    <li key={index}>{todo.text}</li>
+)

@@ -1,0 +1,147 @@
+Form : 사용자로부터 입력을 받기 위해 사용
+React Form vs Html Form
+
+모두 value라는 값을 통해 control하고, 
+setValue함수를 통해 값을 설정하고
+onChange = {handleChange} 를 통해 state를 변경한다. 
+
+======HTML=======
+<form>
+    <label>
+        이름 : <input type="text" name="name"/>
+    </label>
+    <button type= "submit">제출 </button>
+</form>
+
+각각의 태그가 state를 각각 관리한다.
+<input> 의 state
+<textarea>의 state
+<select>의 state
+
+=======React=====
+function NameForm(props){
+    const [value, setValue] = useState('');
+    const handleChange = (event) => {
+        setValue(event.target.value);
+    }
+
+    const handleUpperCase = (event)=>{
+        setValue(event.target.value.toUpperCase());
+    }
+
+    const handleSubmit = (event) => {
+        alert('입력한 이름 : '+ value);
+        event.preventDefault();
+    }
+
+    return (
+        <form onSubmit = {handleSubmit}>
+                                    //  여기서 value 부분에 react 컴포넌트의 value를 넣어주는것
+            <label>이름 : <input type="text" value={value} onChange={handleChange}/>
+            </label>
+            <button type="submit">제출</button>
+        </form>
+    )
+}
+
+Controlled Components : 값이 리액트의 통제를 받는다. 
+Component 안에 state = {}, useState()
+
+===============================
+다양한 Forms
+1. textarea 
+////HTML
+<textarea>
+    안녕하세요
+</textarea>
+////React
+function RequestForm(props){
+    const [value, setValue] = useState('요청사항을 입력해주세요');
+    const handleChange = (event) => {
+        setValue(event.target.value);
+    }
+    const handleSubmit = (event) => {
+        alert('입력한 요청사항 : ' + value );
+        event.preventDefault();
+    }
+    return (
+        <form onSubmit={handleSubmit}>
+            <label>
+                요청사항 : <textarea value={value} onChange={handleChange} />
+            </label>
+            <button type="submit">제출</button>
+        </form>
+    )
+}
+<textarea value={value}/>
+2. drop-down
+//// HTML
+<select>
+    <option value="apple">사과</option>
+    <option value="banana">바나나</banana>
+</select>
+//// React
+** 여러개의 옵션 : <select multiple={true} value={['B', 'C']}>, value 안에는 선택된 옵션들
+
+function FruitSelect(props){
+    const [value, setValue] = useState('grape');
+
+    const handleChange = (event) => {
+        setValue(event.target.value);
+    }
+
+    const handleSubmit = (event) => {
+        alert('선택한 과일 : ' + value)
+    }
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <label>
+                과일을 선택하세요 : 
+                <select value={value} onChange={handleChange}>
+                    <option value="apple">사과</option>
+                    <option value="banana">바나나</option>
+                </select>
+            </label>
+            <button type="submit">제출</button>
+        </form>
+    )
+}
+
+========================
+여러개의 input
+
+function Reservation(props){
+    const [haveBreakfast, setHaveBreakfast] = useState(true);
+    const [numberOfGuest, setNumberOfGuest] = useState(2);
+
+    const handleSubmit = (event) => {
+        alert(`아침식사여부 : ${haveBreakfast}, 방문객 수 ${numberOfGuest}`);
+        event.preventDefault();
+    }
+
+    return(
+        <form onSubmit={handleSubmit}>
+            <label> 아침식사 여부
+                <input
+                    type="checkbox"
+                    checked={haveBreakfast}
+                    onChange={(event)=>{
+                        setHaveBreakfast(event.target.checked);
+                    }}
+                />
+            </label>
+            <br/>
+            <label> 방문객 수 : 
+                <input
+                    type="number"
+                    value={numberOfGuest}
+                    onChange={(event)=>{
+                        setNumberOfGuest(event.target.value);
+                    }}
+                />
+            </label>
+            <button type="submit">제출</button>
+        </form>
+    )
+}
