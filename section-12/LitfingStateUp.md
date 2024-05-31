@@ -3,7 +3,8 @@
         State에 있는 데이터를 여러개의 하위 컴포넌트에서 공통적으로 사용하는 경우
 
 <h3>Shared State 예시</h3>
-<code> 
+
+```javascript
     function BoilingVerdict(props){
         if(props.celsius >= 100){
             return <p>물이 끓습니다</p>;
@@ -25,5 +26,4 @@
             </fieldset>
         }
     }
-
-</code>
+```
